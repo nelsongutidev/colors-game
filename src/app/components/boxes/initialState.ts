@@ -15,11 +15,12 @@ export const BOXES = [
     value: '',
   },
   {
+    id: 4,
     color: '',
     value: '',
   },
   {
-    id: 4,
+    id: 5,
     color: '',
     value: '',
   },

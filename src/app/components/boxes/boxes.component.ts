@@ -19,6 +19,11 @@ import { BoxesService } from './boxes.service';
     </div>
 
     }
+
+    <pre>
+      {{ isCorrectCombination() }}
+    </pre
+    >
   `,
   host: {
     class: 'flex flex-wrap gap-4 justify-center items-center mt-8 ',
@@ -29,6 +34,7 @@ export class BoxesComponent {
   boxesService = inject(BoxesService);
   boxes = this.boxesService.boxes;
   options = this.boxesService.options;
+  isCorrectCombination = this.boxesService.isCorrectCombination;
 
   onBoxSelection(box: any, selectedIndex: number) {
     this.boxesService.onBoxSelection(box, selectedIndex);

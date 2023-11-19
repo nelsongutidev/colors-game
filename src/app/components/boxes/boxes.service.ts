@@ -18,9 +18,16 @@ export class BoxesService {
     });
   });
 
+  answers = signal(['#FFD700', '#7C0A02', '#00457C', '#008000', '#FFA500']);
+  isCorrectCombination = computed(() => {
+    const allColorsCorrect = this.boxes()
+      .map(({ color }, index) => color === this.answers()[index])
+      .every((i) => i);
+
+    return allColorsCorrect;
+  });
+
   selectOption(boxIndex: number, option: any) {
-    console.log('option: ', option);
-    console.log('boxIndex: ', boxIndex);
     this.boxes.update((boxes): any => {
       // if (boxes[boxIndex].color) {
       //   boxes[boxIndex].color = '';
