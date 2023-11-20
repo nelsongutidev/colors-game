@@ -1,5 +1,6 @@
 import { Injectable, computed, signal } from '@angular/core';
 import { BOXES, OPTIONS } from './initialState';
+import { shuffleArray } from '../../utils/utils';
 
 @Injectable({
   providedIn: 'root',
@@ -8,7 +9,9 @@ export class BoxesService {
   boxes = signal(BOXES);
   options = signal(OPTIONS);
   sumbittedAnswers: any = signal([]);
-  answer = signal(['#008000', '#FFD700', '#7C0A02', '#FFA500', '#00457C']); //
+  answer = signal(
+    shuffleArray(['#008000', '#FFD700', '#7C0A02', '#FFA500', '#00457C'])
+  ); //
 
   isReadyToSubmit = computed(() => {
     return !this.boxes().every((box: any) => box.color);
