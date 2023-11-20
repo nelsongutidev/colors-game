@@ -1,12 +1,12 @@
 import { Injectable, computed, signal } from '@angular/core';
-import { BOXES, OPTIONS } from './initialState';
+import { OPTIONS, BOXES_INITIAL_STATE } from './constants';
 import { shuffleArray } from '../../utils/utils';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BoxesService {
-  boxes = signal(BOXES);
+  boxes = signal(BOXES_INITIAL_STATE);
   options = signal(OPTIONS);
   sumbittedAnswers: any = signal([]);
   answer = signal(

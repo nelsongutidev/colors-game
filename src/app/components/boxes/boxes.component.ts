@@ -1,6 +1,5 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BOXES, OPTIONS } from './initialState';
 import { ColorOptionsComponent } from '../color-options/color-options.component';
 import { BoxesService } from './boxes.service';
 

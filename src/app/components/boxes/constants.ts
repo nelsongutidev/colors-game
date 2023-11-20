@@ -1,4 +1,4 @@
-export const BOXES = [
+export const BOXES_INITIAL_STATE = [
   {
     id: 1,
     color: '',
