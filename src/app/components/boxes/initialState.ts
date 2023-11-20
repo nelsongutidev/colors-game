@@ -2,27 +2,22 @@ export const BOXES = [
   {
     id: 1,
     color: '',
-    value: '',
   },
   {
     id: 2,
     color: '',
-    value: '',
   },
   {
     id: 3,
     color: '',
-    value: '',
   },
   {
     id: 4,
     color: '',
-    value: '',
   },
   {
     id: 5,
     color: '',
-    value: '',
   },
 ];
 
@@ -48,7 +43,7 @@ export const OPTIONS = [
     disabled: false,
   },
   {
-    color: '#FFA500',
+    color: '#FFA500', // orange
     value: '5',
     disabled: false,
   },

@@ -1,6 +1,5 @@
 import { Component, Input, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { OPTIONS } from '../boxes/initialState';
 import { BoxesService } from '../boxes/boxes.service';
 
 @Component({
@@ -12,7 +11,7 @@ import { BoxesService } from '../boxes/boxes.service';
     <button
       class="w-1/5 h-8 border-2 rounded-lg "
       [style.backgroundColor]="option.color"
-      (click)="onSelection(option, $index)"
+      (click)="onSelection(option)"
       [style.opacity]="option.disabled ? 0.1 : 1"
       [disabled]="option.disabled"
     ></button
@@ -27,8 +26,7 @@ export class ColorOptionsComponent {
   options = this.boxesService.options;
   availableOptions = this.boxesService.availableOptions;
 
-  onSelection(option: any, selectedIndex: number) {
-    console.log('option: ', option);
+  onSelection(option: any) {
     this.boxesService.selectOption(this.boxIndex, option);
   }
 }

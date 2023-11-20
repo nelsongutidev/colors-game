@@ -7,6 +7,13 @@ import { BOXES, OPTIONS } from './initialState';
 export class BoxesService {
   boxes = signal(BOXES);
   options = signal(OPTIONS);
+  sumbittedAnswers: any = signal([]);
+  answer = signal(['#008000', '#FFD700', '#7C0A02', '#FFA500', '#00457C']); //
+
+  isReadyToSubmit = computed(() => {
+    return !this.boxes().every((box: any) => box.color);
+  });
+
   availableOptions = computed(() => {
     const selectedColors = this.boxes().map((box: any) => box.color);
     return this.options().map((option: any) => {
@@ -18,23 +25,40 @@ export class BoxesService {
     });
   });
 
-  answers = signal(['#FFD700', '#7C0A02', '#00457C', '#008000', '#FFA500']);
   isCorrectCombination = computed(() => {
     const allColorsCorrect = this.boxes()
-      .map(({ color }, index) => color === this.answers()[index])
+      .map(({ color }, index) => color === this.answer()[index])
       .every((i) => i);
 
     return allColorsCorrect;
   });
 
+  private resetBoxes() {
+    this.boxes.update((boxes: any) => {
+      return boxes.map((box: any) => {
+        return {
+          ...box,
+          color: '',
+        };
+      });
+    });
+  }
+
+  private resetOptions() {
+    this.options.update((option) => {
+      return option.map((option: any) => {
+        return {
+          ...option,
+          disabled: false,
+        };
+      });
+    });
+  }
+
   selectOption(boxIndex: number, option: any) {
     this.boxes.update((boxes): any => {
-      // if (boxes[boxIndex].color) {
-      //   boxes[boxIndex].color = '';
-      //   boxes[boxIndex].value = '';
-      // }
       boxes[boxIndex].color = option.color;
-      boxes[boxIndex].value = option.value;
+
       return [...boxes];
     });
   }
@@ -43,10 +67,29 @@ export class BoxesService {
     this.boxes.update((boxes): any => {
       if (boxes[selectedIndex].color) {
         boxes[selectedIndex].color = '';
-        boxes[selectedIndex].value = '';
         return [...boxes];
       }
       return [...boxes];
     });
+  }
+
+  onSubmitAnswer() {
+    const submitted = this.boxes();
+    const correctAnswers = this.boxes()
+      .map(({ color }, index) => color === this.answer()[index])
+      .filter(Boolean).length;
+
+    this.sumbittedAnswers.update((submittedAnswers: any) => {
+      const submission: any = {
+        correctAnswers,
+        submitted,
+      };
+      submittedAnswers.push(submission as any);
+
+      return [...submittedAnswers];
+    });
+
+    this.resetBoxes();
+    this.resetOptions();
   }
 }
