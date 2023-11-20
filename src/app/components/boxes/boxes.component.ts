@@ -16,14 +16,14 @@ import { BoxesService } from './boxes.service';
           @for(item of submitAnswer.submitted; track item) {
           <div class="flex flex-col">
             <div
-              class="w-12 h-12 border rounded-lg "
+              class="w-12 h-12 md:h-8 sm:h-6 md:w-8 sm:w-6 border rounded-lg "
               [style.backgroundColor]="item.color"
               (click)="onBoxSelection(item, $index)"
             ></div>
           </div>
 
           }
-          <div>Correct Anssers: {{ submitAnswer.correctAnswers }}</div>
+          <div>Correct Answers: {{ submitAnswer.correctAnswers }}</div>
         </div>
 
         }
@@ -33,11 +33,11 @@ import { BoxesService } from './boxes.service';
         @for (item of boxes(); track item.id) {
         <div class="flex flex-col">
           <div
-            class="w-36 h-36 border-2 rounded-lg "
+            class="w-12 h-12 lg:h-36 lg:w-36 md:w-24 md:h-24  border-2 rounded-lg "
             [style.backgroundColor]="item.color"
             (click)="onBoxSelection(item, $index)"
           ></div>
-          <app-color-options [boxIndex]="$index" />
+          <app-color-options class="my-2" [boxIndex]="$index" />
         </div>
 
         }
