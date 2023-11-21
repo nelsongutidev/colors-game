@@ -9,7 +9,7 @@ import { BoxesService } from '../boxes/boxes.service';
   template: `
     @for(option of availableOptions(); track option.value) {
     <button
-      class="w-1/5 h-4 md:h-6 lg:h-8 border-2 rounded-lg "
+      class="w-8 h-8 border-2 rounded-lg "
       [style.backgroundColor]="option.color"
       (click)="onSelection(option)"
       [style.opacity]="option.disabled ? 0.1 : 1"
@@ -17,7 +17,9 @@ import { BoxesService } from '../boxes/boxes.service';
     ></button
     >}
   `,
-  styles: ``,
+  host: {
+    class: 'flex flex-wrap flex-col justify-center items-center sm:flex-row',
+  },
 })
 export class ColorOptionsComponent {
   @Input() boxIndex!: number;

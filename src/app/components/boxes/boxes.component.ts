@@ -28,11 +28,11 @@ import { BoxesService } from './boxes.service';
         }
       </div>
 
-      <div class="flex gap-4 items-center">
+      <div class="flex gap-4 items-center flex-wrap justify-center">
         @for (item of boxes(); track item.id) {
-        <div class="flex flex-col">
+        <div class="flex flex-col items-center">
           <div
-            class="w-12 h-12 lg:h-36 lg:w-36 md:w-24 md:h-24  border-2 rounded-lg "
+            class="w-12 h-12 lg:h-36 lg:w-36 md:w-full md:h-24  border-2 rounded-lg "
             [style.backgroundColor]="item.color"
             (click)="onBoxSelection(item, $index)"
           ></div>

@@ -1,3 +1,5 @@
+import { Option } from '../../models/models';
+
 export const BOXES_INITIAL_STATE = [
   {
     id: 1,
@@ -21,30 +23,25 @@ export const BOXES_INITIAL_STATE = [
   },
 ];
 
-export const OPTIONS = [
+export const OPTIONS: Option[] = [
   {
     color: '#00457C', // Dark Blue
-    value: '1',
     disabled: false,
   },
   {
     color: '#008000', // Green
-    value: '2',
     disabled: false,
   },
   {
     color: '#FFD700', // Gold
-    value: '3',
     disabled: false,
   },
   {
     color: '#7C0A02', // Dark Red
-    value: '4',
     disabled: false,
   },
   {
     color: '#FFA500', // orange
-    value: '5',
     disabled: false,
   },
 ];
