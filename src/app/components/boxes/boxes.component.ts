@@ -10,8 +10,6 @@ import { SvgIncorrectIconComponent } from '../svg-incorrect-icon/svg-incorrect-i
   standalone: true,
   template: `
     <main>
-      <h1 class="text-2xl text-center">Color Game</h1>
-
       <div class="flex flex-col my-4">
         @for(submitAnswer of submittedAnswers(); track submitAnswer) {
         <div class="flex justify-center gap-2">
@@ -40,11 +38,13 @@ import { SvgIncorrectIconComponent } from '../svg-incorrect-icon/svg-incorrect-i
         }
       </div>
 
-      <div class="flex gap-4 items-center  justify-center mx-2 mt-8">
+      <div
+        class="flex gap-1 sm:gap-2 md:gap-4 items-center  justify-center mx-2 sm:mx-4 mt-8"
+      >
         @for (item of boxes(); track item.id) {
         <div class="flex flex-col items-center">
           <div
-            class="w-full h-16 lg:h-36 lg:w-36 md:h-24 border-2 rounded-lg "
+            class="w-full h-16 lg:h-40 lg:w-40  sm:h-32 border-2 rounded-lg"
             [style.backgroundColor]="item.color"
             (click)="onBoxSelection(item, $index)"
           ></div>
@@ -66,7 +66,7 @@ import { SvgIncorrectIconComponent } from '../svg-incorrect-icon/svg-incorrect-i
     </main>
   `,
   host: {
-    class: 'flex flex-wrap gap-4 justify-center items-center mt-8 ',
+    class: 'flex flex-wrap gap-4 justify-center items-center mt-4 ',
   },
   imports: [
     CommonModule,

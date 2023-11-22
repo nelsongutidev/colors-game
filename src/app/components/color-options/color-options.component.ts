@@ -9,7 +9,7 @@ import { BoxesService } from '../boxes/boxes.service';
   template: `
     @for(option of availableOptions(); track option.value) {
     <button
-      class="w-8 h-8 border-2 rounded-lg "
+      class="w-8 h-8 border-2 rounded-full "
       [style.backgroundColor]="option.color"
       (click)="onSelection(option)"
       [style.opacity]="option.disabled ? 0.1 : 1"
