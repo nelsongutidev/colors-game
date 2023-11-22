@@ -66,7 +66,8 @@ import { SvgIncorrectIconComponent } from '../svg-incorrect-icon/svg-incorrect-i
     </main>
   `,
   host: {
-    class: 'flex flex-wrap gap-4 justify-center items-center mt-4 ',
+    class:
+      'flex flex-wrap gap-4 justify-center items-center mt-4 h-full content-start',
   },
   imports: [
     CommonModule,
