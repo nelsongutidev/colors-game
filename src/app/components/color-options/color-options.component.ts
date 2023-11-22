@@ -18,7 +18,7 @@ import { BoxesService } from '../boxes/boxes.service';
     >}
   `,
   host: {
-    class: 'flex flex-wrap flex-col justify-center items-center sm:flex-row',
+    class: 'flex flex-wrap flex-row justify-center items-center ',
   },
 })
 export class ColorOptionsComponent {
