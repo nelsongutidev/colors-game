@@ -17,7 +17,7 @@ import { FooterComponent } from './components/footer/footer.component';
     HeaderComponent,
     FooterComponent,
   ],
-  host: { class: 'flex flex-col h-screen' },
+  host: { class: 'flex flex-col min-h-screen justify-between' },
 })
 export class AppComponent {
   title = 'colors-game';

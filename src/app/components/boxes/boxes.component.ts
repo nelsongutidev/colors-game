@@ -11,7 +11,7 @@ import { DialogComponent } from '../dialog/dialog.component';
   selector: 'app-boxes',
   standalone: true,
   template: `
-    <main>
+    <section>
       <div class="flex flex-col my-4">
         @for(submitAnswer of submittedAnswers(); track submitAnswer) {
         <div class="flex justify-center gap-2">
@@ -65,7 +65,7 @@ import { DialogComponent } from '../dialog/dialog.component';
           Submit
         </button>
       </div>
-    </main>
+    </section>
   `,
   host: {
     class:
