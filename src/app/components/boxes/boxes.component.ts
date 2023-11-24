@@ -25,12 +25,20 @@ import { DialogComponent } from '../dialog/dialog.component';
           </div>
 
           }
-          <div class="flex items-center">
-            @for(item of Array(submitAnswer.correctAnswers); track item) {
+          <div class="flex items-center gap-2">
+            <!-- @for(item of Array(submitAnswer.correctAnswers); track item) {
             <app-svg-correct-icon />
             } @for(item of Array(5 -submitAnswer.correctAnswers); track item) {
             <app-svg-incorrect-icon />
-            }
+            } -->
+
+            <span class="inline-flex items-center justify-center"
+              >{{ submitAnswer.correctAnswers }} <app-svg-correct-icon />
+            </span>
+
+            <span class="inline-flex items-center justify-center"
+              >{{ 5 - submitAnswer.correctAnswers }} <app-svg-incorrect-icon
+            /></span>
           </div>
         </div>
         <div class="flex justify-center">
