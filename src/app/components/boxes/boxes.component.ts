@@ -4,6 +4,8 @@ import { ColorOptionsComponent } from '../color-options/color-options.component'
 import { BoxesService } from './boxes.service';
 import { SvgCorrectIconComponent } from '../svg-correct-icon/svg-correct-icon.component';
 import { SvgIncorrectIconComponent } from '../svg-incorrect-icon/svg-incorrect-icon.component';
+import { Dialog, DialogModule } from '@angular/cdk/dialog';
+import { DialogComponent } from '../dialog/dialog.component';
 
 @Component({
   selector: 'app-boxes',
@@ -18,7 +20,7 @@ import { SvgIncorrectIconComponent } from '../svg-incorrect-icon/svg-incorrect-i
             <div
               class="w-8 h-8 md:h-8 border rounded-lg "
               [style.backgroundColor]="item.color"
-              (click)="onBoxSelection(item, $index)"
+              (click)="onBoxSelection($index)"
             ></div>
           </div>
 
@@ -46,7 +48,7 @@ import { SvgIncorrectIconComponent } from '../svg-incorrect-icon/svg-incorrect-i
           <div
             class="w-full h-16 lg:h-40 lg:w-40  sm:h-32 border-2 rounded-lg"
             [style.backgroundColor]="item.color"
-            (click)="onBoxSelection(item, $index)"
+            (click)="onBoxSelection($index)"
           ></div>
           <app-color-options class="my-2" [boxIndex]="$index" />
         </div>
@@ -74,9 +76,11 @@ import { SvgIncorrectIconComponent } from '../svg-incorrect-icon/svg-incorrect-i
     ColorOptionsComponent,
     SvgCorrectIconComponent,
     SvgIncorrectIconComponent,
+    DialogModule,
   ],
 })
 export class BoxesComponent {
+  dialog = inject(Dialog);
   boxesService = inject(BoxesService);
   boxes = this.boxesService.boxes;
   options = this.boxesService.options;
@@ -84,11 +88,21 @@ export class BoxesComponent {
   isReadyToSubmit = this.boxesService.isReadyToSubmit;
   Array = Array;
 
-  onBoxSelection(box: any, selectedIndex: number) {
-    this.boxesService.onBoxSelection(box, selectedIndex);
+  onBoxSelection(selectedIndex: number) {
+    this.boxesService.onBoxSelection(selectedIndex);
   }
 
   submitAnswer() {
     this.boxesService.onSubmitAnswer();
+
+    if (this.boxesService.isGameCompleted()) {
+      this.dialog
+        .open(DialogComponent, {
+          minWidth: '300px',
+        })
+        .closed.subscribe(() => {
+          this.boxesService.resetGame();
+        });
+    }
   }
 }

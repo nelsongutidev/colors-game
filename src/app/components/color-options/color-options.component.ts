@@ -29,6 +29,6 @@ export class ColorOptionsComponent {
   availableOptions = this.boxesService.availableOptions;
 
   onSelection(option: any) {
-    this.boxesService.selectOption(this.boxIndex, option);
+    this.boxesService.onOptionSelect(this.boxIndex, option);
   }
 }

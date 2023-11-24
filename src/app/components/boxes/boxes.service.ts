@@ -1,6 +1,7 @@
-import { Injectable, computed, signal } from '@angular/core';
+import { Injectable, WritableSignal, computed, signal } from '@angular/core';
 import { OPTIONS, BOXES_INITIAL_STATE } from './constants';
 import { shuffleArray } from '../../utils/utils';
+import { Option, SubmittedAnswer } from '../../models/models';
 
 @Injectable({
   providedIn: 'root',
@@ -8,10 +9,16 @@ import { shuffleArray } from '../../utils/utils';
 export class BoxesService {
   boxes = signal(BOXES_INITIAL_STATE);
   options = signal(OPTIONS);
-  sumbittedAnswers: any = signal([]);
+  sumbittedAnswers: WritableSignal<SubmittedAnswer[]> = signal([]);
+  isGameCompleted = computed(() =>
+    this.sumbittedAnswers()
+      .map((answer) => answer.correctAnswers)
+      .some((correctAnswers) => correctAnswers === 5)
+  );
+  attempts = computed(() => this.sumbittedAnswers().length);
   answer = signal(
     shuffleArray(['#008000', '#FFD700', '#7C0A02', '#FFA500', '#00457C'])
-  ); //
+  );
 
   isReadyToSubmit = computed(() => {
     return !this.boxes().every((box: any) => box.color);
@@ -58,15 +65,20 @@ export class BoxesService {
     });
   }
 
-  selectOption(boxIndex: number, option: any) {
+  resetGame() {
+    this.resetBoxes();
+    this.resetOptions();
+    this.sumbittedAnswers.update(() => []);
+  }
+
+  onOptionSelect(boxIndex: number, option: Option) {
     this.boxes.update((boxes): any => {
       boxes[boxIndex].color = option.color;
-
       return [...boxes];
     });
   }
 
-  onBoxSelection(box: any, selectedIndex: number) {
+  onBoxSelection(selectedIndex: number) {
     this.boxes.update((boxes): any => {
       if (boxes[selectedIndex].color) {
         boxes[selectedIndex].color = '';
