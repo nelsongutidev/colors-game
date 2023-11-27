@@ -1,13 +1,14 @@
 import { Component, Input, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BoxesService } from '../boxes/boxes.service';
+import { Option } from '../../models/models';
 
 @Component({
   selector: 'app-color-options',
   standalone: true,
   imports: [CommonModule],
   template: `
-    @for(option of availableOptions(); track option.value) {
+    @for(option of availableOptions(); track option) {
     <button
       class="w-8 h-8 border-2 rounded-full "
       [style.backgroundColor]="option.color"
@@ -28,7 +29,7 @@ export class ColorOptionsComponent {
   options = this.boxesService.options;
   availableOptions = this.boxesService.availableOptions;
 
-  onSelection(option: any) {
+  onSelection(option: Option) {
     this.boxesService.onOptionSelect(this.boxIndex, option);
   }
 }

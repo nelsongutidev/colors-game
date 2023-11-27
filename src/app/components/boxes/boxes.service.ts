@@ -21,12 +21,12 @@ export class BoxesService {
   );
 
   isReadyToSubmit = computed(() => {
-    return !this.boxes().every((box: any) => box.color);
+    return !this.boxes().every((box) => box.color);
   });
 
   availableOptions = computed(() => {
-    const selectedColors = this.boxes().map((box: any) => box.color);
-    return this.options().map((option: any) => {
+    const selectedColors = this.boxes().map((box) => box.color);
+    return this.options().map((option) => {
       const isDisabled = selectedColors.includes(option.color);
       return {
         ...option,
@@ -44,8 +44,8 @@ export class BoxesService {
   });
 
   private resetBoxes() {
-    this.boxes.update((boxes: any) => {
-      return boxes.map((box: any) => {
+    this.boxes.update((boxes) => {
+      return boxes.map((box) => {
         return {
           ...box,
           color: '',
@@ -56,7 +56,7 @@ export class BoxesService {
 
   private resetOptions() {
     this.options.update((option) => {
-      return option.map((option: any) => {
+      return option.map((option) => {
         return {
           ...option,
           disabled: false,
@@ -72,14 +72,14 @@ export class BoxesService {
   }
 
   onOptionSelect(boxIndex: number, option: Option) {
-    this.boxes.update((boxes): any => {
+    this.boxes.update((boxes) => {
       boxes[boxIndex].color = option.color;
       return [...boxes];
     });
   }
 
   onBoxSelection(selectedIndex: number) {
-    this.boxes.update((boxes): any => {
+    this.boxes.update((boxes) => {
       if (boxes[selectedIndex].color) {
         boxes[selectedIndex].color = '';
         return [...boxes];
@@ -94,12 +94,12 @@ export class BoxesService {
       .map(({ color }, index) => color === this.answer()[index])
       .filter(Boolean).length;
 
-    this.sumbittedAnswers.update((submittedAnswers: any) => {
-      const submission: any = {
+    this.sumbittedAnswers.update((submittedAnswers) => {
+      const submission = {
         correctAnswers,
         submitted,
       };
-      submittedAnswers.push(submission as any);
+      submittedAnswers.push(submission);
 
       return [...submittedAnswers];
     });
