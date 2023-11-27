@@ -66,6 +66,9 @@ export class BoxesService {
   }
 
   resetGame() {
+    this.answer.set(
+      shuffleArray(['#008000', '#FFD700', '#7C0A02', '#FFA500', '#00457C'])
+    );
     this.resetBoxes();
     this.resetOptions();
     this.sumbittedAnswers.update(() => []);
