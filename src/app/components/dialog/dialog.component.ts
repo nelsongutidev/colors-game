@@ -33,9 +33,9 @@ const COLOR_MAP = {
 
       <div class="flex gap-2 ">
         <button (click)="closeDialog()" class="btn border">Play again!</button>
-        <!-- <a target="_blank" class="btn border" [href]="text"
+        <a target="_blank" class="btn border" [href]="text"
           ><span>Share on X</span></a
-        > -->
+        >
       </div>
     </section>
   `,
