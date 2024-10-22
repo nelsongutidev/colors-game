@@ -24,10 +24,10 @@ import { Option } from '../../models/models';
 })
 export class ColorOptionsComponent {
   @Input() boxIndex!: number;
-  boxesService = inject(BoxesService);
-  boxes = this.boxesService.boxes;
-  options = this.boxesService.options;
-  availableOptions = this.boxesService.availableOptions;
+  protected readonly boxesService = inject(BoxesService);
+  protected readonly boxes = this.boxesService.boxes;
+  protected readonly options = this.boxesService.options;
+  protected readonly availableOptions = this.boxesService.availableOptions;
 
   onSelection(option: Option) {
     this.boxesService.onOptionSelect(this.boxIndex, option);

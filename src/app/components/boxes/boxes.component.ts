@@ -88,11 +88,11 @@ import { DialogComponent } from '../dialog/dialog.component';
   ],
 })
 export class BoxesComponent {
-  dialog = inject(Dialog);
-  boxesService = inject(BoxesService);
-  boxes = this.boxesService.boxes;
-  options = this.boxesService.options;
-  submittedAnswers = this.boxesService.sumbittedAnswers;
+  private readonly dialog = inject(Dialog);
+  private readonly boxesService = inject(BoxesService);
+  protected readonly boxes = this.boxesService.boxes;
+  protected readonly options = this.boxesService.options;
+  protected readonly submittedAnswers = this.boxesService.submittedAnswers;
   isReadyToSubmit = this.boxesService.isReadyToSubmit;
   Array = Array;
 

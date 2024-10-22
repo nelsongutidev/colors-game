@@ -45,16 +45,16 @@ const COLOR_MAP = {
   },
 })
 export class DialogComponent {
-  dialog = inject(Dialog);
-  boxesService = inject(BoxesService);
-  answer = this.boxesService.answer;
-  attempts = this.boxesService.attempts;
-  answerEmojis = computed(() => {
+  private readonly dialog = inject(Dialog);
+  private readonly boxesService = inject(BoxesService);
+  protected readonly answer = this.boxesService.answer;
+  protected readonly attempts = this.boxesService.attempts;
+  protected readonly answerEmojis = computed(() => {
     return this.answer()
       .map((color: string) => COLOR_MAP[color as keyof typeof COLOR_MAP])
       .join('');
   });
-  text =
+  protected readonly text =
     'https://twitter.com/intent/tweet?text=' +
     encodeURIComponent(
       `I just solved the COLORS game in ${this.attempts()} attempts!  \n ${this.answerEmojis()} \n\n  Give it a try at`
