@@ -17,5 +17,5 @@ import { Component, VERSION } from '@angular/core';
   `,
 })
 export class FooterComponent {
-  VERSION = VERSION;
+  protected readonly VERSION = VERSION;
 }

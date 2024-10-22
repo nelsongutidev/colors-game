@@ -7,25 +7,28 @@ import { Option, SubmittedAnswer } from '../../models/models';
   providedIn: 'root',
 })
 export class BoxesService {
-  boxes = signal(BOXES_INITIAL_STATE);
-  options = signal(OPTIONS);
-  sumbittedAnswers: WritableSignal<SubmittedAnswer[]> = signal([]);
-  isGameCompleted = computed(() =>
-    this.sumbittedAnswers()
+  private _boxes = signal(BOXES_INITIAL_STATE);
+  private _submittedAnswers: WritableSignal<SubmittedAnswer[]> = signal([]);
+  private _answer = signal(
+    shuffleArray(['#008000', '#FFD700', '#7C0A02', '#FFA500', '#00457C'])
+  );
+  public readonly options = signal(OPTIONS);
+  public readonly boxes = this._boxes.asReadonly();
+  public readonly submittedAnswers = this._submittedAnswers.asReadonly();
+  public readonly isGameCompleted = computed(() =>
+    this.submittedAnswers()
       .map((answer) => answer.correctAnswers)
       .some((correctAnswers) => correctAnswers === 5)
   );
-  attempts = computed(() => this.sumbittedAnswers().length);
-  answer = signal(
-    shuffleArray(['#008000', '#FFD700', '#7C0A02', '#FFA500', '#00457C'])
-  );
+  public readonly attempts = computed(() => this.submittedAnswers().length);
+  public readonly answer = this._answer.asReadonly();
 
-  isReadyToSubmit = computed(() => {
-    return !this.boxes().every((box) => box.color);
+  public readonly isReadyToSubmit = computed(() => {
+    return !this._boxes().every((box) => box.color);
   });
 
-  availableOptions = computed(() => {
-    const selectedColors = this.boxes().map((box) => box.color);
+  public readonly availableOptions = computed(() => {
+    const selectedColors = this._boxes().map((box) => box.color);
     return this.options().map((option) => {
       const isDisabled = selectedColors.includes(option.color);
       return {
@@ -35,8 +38,8 @@ export class BoxesService {
     });
   });
 
-  isCorrectCombination = computed(() => {
-    const allColorsCorrect = this.boxes()
+  readonly isCorrectCombination = computed(() => {
+    const allColorsCorrect = this._boxes()
       .map(({ color }, index) => color === this.answer()[index])
       .every((i) => i);
 
@@ -44,7 +47,7 @@ export class BoxesService {
   });
 
   private resetBoxes() {
-    this.boxes.update((boxes) => {
+    this._boxes.update((boxes) => {
       return boxes.map((box) => {
         return {
           ...box,
@@ -66,23 +69,23 @@ export class BoxesService {
   }
 
   resetGame() {
-    this.answer.set(
+    this._answer.set(
       shuffleArray(['#008000', '#FFD700', '#7C0A02', '#FFA500', '#00457C'])
     );
     this.resetBoxes();
     this.resetOptions();
-    this.sumbittedAnswers.update(() => []);
+    this._submittedAnswers.update(() => []);
   }
 
   onOptionSelect(boxIndex: number, option: Option) {
-    this.boxes.update((boxes) => {
+    this._boxes.update((boxes) => {
       boxes[boxIndex].color = option.color;
       return [...boxes];
     });
   }
 
   onBoxSelection(selectedIndex: number) {
-    this.boxes.update((boxes) => {
+    this._boxes.update((boxes) => {
       if (boxes[selectedIndex].color) {
         boxes[selectedIndex].color = '';
         return [...boxes];
@@ -92,12 +95,12 @@ export class BoxesService {
   }
 
   onSubmitAnswer() {
-    const submitted = this.boxes();
-    const correctAnswers = this.boxes()
+    const submitted = this._boxes();
+    const correctAnswers = this._boxes()
       .map(({ color }, index) => color === this.answer()[index])
       .filter(Boolean).length;
 
-    this.sumbittedAnswers.update((submittedAnswers) => {
+    this._submittedAnswers.update((submittedAnswers) => {
       const submission = {
         correctAnswers,
         submitted,
